@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/notif.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- sidebar start -->
+      <div class="sidebar">
+        <ul class="sidebar-nav">
+          <li>
+            <div class="side-logo"></div>
+          </li>
+          <li>
+            <span>
+              <i class="fa-solid fa-house"></i>
+            </span>
+            <br />
+            Dashboard
+          </li>
+          <li>
+            <span>
+              <i class="fa-solid fa-truck"></i>
+            </span>
+            <br />
+            Cars
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar end -->
+
+      <div class="d-flex flex-column">
+        <!-- navbar start -->
+        <div class="navs">
+          <div class="navbar-top">
+            <ul class="d-flex gap-3">
+              <li>
+                <div class="logo"></div>
+              </li>
+              <li class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+              </li>
+            </ul>
+
+            <!-- search -->
+            <div class="d-flex">
+              <div class="d-flex margin-list">
+                <div class="search-container">
+                  <span id="search-icon"
+                    ><i class="fa fa-search"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search"
+                  />
+                </div>
+                <button class="btns btns-blue-outline">Search</button>
+              </div>
+              <!-- search -->
+
+              <div class="d-flex">
+                <div class="pict">U</div>
+                <p class="name-account">
+                  Unis Badri
+                  <span class="icon-account">
+                    <i class="fa-solid fa-angle-down"></i>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- navbar end -->
+
+        <div class="d-flex">
+          <!-- nav-link start -->
+          <div class="nav-link">
+            <ul class="nav-link_list">
+              <li class="nav-link__Cars">CARS</li>
+              <li class="nav-link__List-Car">List Car</li>
+            </ul>
+          </div>
+          <!-- nav-link end -->
+
+          <% if (message != "") { %>
+          <ul id="unordered-list" class="notifications">
+            <li id="notif-list" class="poast">
+              <div class="column">
+                <i class="fa-solid fa-circle-check"></i>
+                <span><%= message %></span>
+              </div>
+              <i
+                class="fa-solid fa-xmark"
+                onclick="removePoast(this.parentElement)"
+              ></i>
+            </li>
+          </ul>
+          <% } %>
+
+          <ul class="notifications"></ul>
+
+          <!-- content start -->
+          <div class="content">
+            <div class="content-header">
+              <div>
+                <ul class="link-page d-flex gap-2">
+                  <li>
+                    <a href="">Cars</a>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-angle-right"></i>
+                  </li>
+                  <li>
+                    <a href="">List Cars</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="create-btn">
+                <h6 class="list-car-tag">List Car</h6>
+                <a href="create">
+                  <button class="btns btns-blue-primary">
+                    <span class="me-2">
+                      <i class="fa-solid fa-plus"></i>
+                    </span>
+                    Add New Car
+                  </button>
+                </a>
+              </div>
+              <div class="font-btn">
+                <button id="btn-notip" class="btns btns-blue">
+                  All
+                </button>
+                <button class="btns btns-gray">Small</button>
+                <button class="btns btns-gray">Medium</button>
+                <button class="btns btns-gray">Large</button>
+              </div>
+            </div>
+
+            <div class="content-body">
+              <% allListCars.map((list) => { %>
+              <div class="card">
+                <img
+                  src="/img/car02.min.jpg"
+                  class="card-img-top"
+                  alt="product-cars"
+                />
+                <div class="card-body">
+                  <p class="mb-0"><%= list.nama %></p>
+                  <p class="fw-bold">
+                    <%= `Rp. ${list.sewaPerHari} / Hari` %>
+                  </p>
+                  <p class="card-updated">
+                    <span>
+                      <i class="fa-regular fa-clock"></i>
+                    </span>
+                    <%= `Updated at ${list.updatedAt}` %>
+                  </p>
+
+                  <button
+                    class="btns btns-red"
+                    data-list-id="<%= list.id %>"
+                    onclick="toggleModal(this)"
+                  >
+                    <span class="me-1">
+                      <i class="fa-solid fa-trash"></i>
+                    </span>
+                    Delete
+                  </button>
+
+                  <a
+                    href="edit/<%= list.id %>"
+                    class="btns btns-green ms-1"
+                  >
+                    <span class="me-1">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </span>
+                    Edit
+                  </a>
+                </div>
+              </div>
+              <% }) %>
+
+              <div id="myModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button
+                        onclick="closeModal()"
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <img src="/img/img-BeepBeep.svg" alt="" />
+                      <h6 class="modal-tag">Menghapus Data Mobil</h6>
+                      <p class="modal-text">
+                        Setelah dihapus, data mobil tidak dapat
+                        dikembalikan. Yakin ingin menghapus?
+                      </p>
+                    </div>
+                    <div class="modal-footer">
+                      <form
+                        id="dlt-form"
+                        method="post"
+                        class="form-delete"
+                      >
+                        <button
+                          type="submit"
+                          class="btns btns-blue-primary_modal"
+                          data-bs-dismiss="modal"
+                        >
+                          Ya
+                        </button>
+                      </form>
+
+                      <button
+                        onclick="closeModal()"
+                        type="button"
+                        class="btns btns-blue-outline_modal"
+                      >
+                        Tidak
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content end -->
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/index.js"></script>
+
+    <script>
+      const toggleModal = (button) => {
+        const listId = button.dataset.listId;
+        const myModal = document.getElementById("myModal");
+        myModal.style.display =
+          myModal.style.display === "block" ? "none" : "block";
+
+        document.getElementById(
+          "dlt-form"
+        ).action = `delete/${listId}`;
+      };
+
+      const closeModal = () => {
+        const myModal = document.getElementById("myModal");
+        myModal.style.display =
+          myModal.style.display === "block" ? "none" : "block";
+      };
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

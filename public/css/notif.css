@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+.notifications {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.notifications :where(.poast, .column) {
+  display: flex;
+  align-items: center;
+}
+
+.notifications .poast {
+  width: 400px;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 10px;
+  background: white;
+  justify-content: space-between;
+  animation: show_poast 0.3s ease forwards;
+}
+
+@keyframes show_poast {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-5%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+.notifications .poast.hide {
+  animation: hide_poast 0.3s ease forwards;
+}
+@keyframes hide_poast {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(calc(100% + 20px));
+  }
+}
+
+.poast::before {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  animation: progress 5s linear forwards;
+}
+@keyframes progress {
+  100% {
+    width: 0%;
+  }
+}
+
+.poast::before {
+  background: #0abf30;
+}
+
+.poast .column i {
+  font-size: 1.75rem;
+  color: #0abf30;
+}
+
+.poast .column span {
+  font-size: 1.07rem;
+  margin-left: 12px;
+  color: black;
+}
+.poast i:last-child {
+  color: #aeb0d7;
+  cursor: pointer;
+}
+.poast i:last-child:hover {
+  color: black;
+}
